@@ -13,7 +13,6 @@ public class PlayingCardGame {
         System.out.println("Play game, press 1\nRead rules, press 2\nShow highscore, press 3\nQuit game, press 0");
         int menu = input.nextInt();
 
-//        while (menu != 1 || menu != 2 || menu != 3 || menu != 0) {
         if (menu == 1) {
             play();
         } else if (menu == 2) {
@@ -22,8 +21,10 @@ public class PlayingCardGame {
             highscore();
         } else if (menu == 0) {
             System.exit(1);
+        } else {
+            backToMenu();
         }
-//        }
+
     }
 
     private void play() {
@@ -35,21 +36,21 @@ public class PlayingCardGame {
         System.out.println("Your name: ");
         String name = input.nextLine();
 
-        System.out.println("How many rounds do you wish to play?");
+        System.out.println("How many rounds do you wish to play? To quit press 0.");
         int numberOfRounds = input.nextInt();
-
-        System.out.println(name + ", take the top card of the deck by pressing 1, to quit press 0.");
-        int cardChoice = input.nextInt();
 
         int count = 0;
 
-        if (cardChoice == 1) {
+        if (numberOfRounds > 0 && numberOfRounds < 27) {
 
             for (int i = 0; i < numberOfRounds; i++) {
 
+                System.out.println("\n" + name + ", take the top card of the deck by pressing 1.");
+                int cardChoice = input.nextInt();
+
                 PlayingCard card = deck.getTopCard();
                 deck.removeCard(0);
-                System.out.println(card);
+                System.out.println("Your card is: " + card + "\n");
 
                 System.out.println("Press 1 to take your hidden card from the deck.");
                 int hiddenCardChoice = input.nextInt();
@@ -58,7 +59,7 @@ public class PlayingCardGame {
                     PlayingCard hiddenCard = deck.getTopCard();
                     deck.removeCard(0);
 
-                    System.out.println("Is your first card:\nHigher, press 1\nLower, press 2\nthan the hidden card?");
+                    System.out.println("\nIs your first card:\nHigher, press 1\nLower, press 2\nthan the hidden card?");
                     int guess = input.nextInt();
 
                     if (guess == 1) {
@@ -78,14 +79,18 @@ public class PlayingCardGame {
                         }
                     }
                 }
-                System.out.println(name + ", your total score is: " + count + " and is added to the highscore board. ");
-
-                writeToFile("textfiles\\highscore.txt", name, count);
-
             }
 
-        } else if (cardChoice == 2) {
+            System.out.println("\n" + name + ", your total score is: " + count + " and is added to the highscore board.\n");
+
+            writeToFile("textfiles\\highscore.txt", name, count);
+
+            backToMenu();
+
+        } else if (numberOfRounds == 2) {
             System.exit(1);
+        } else if (numberOfRounds >= 27) {
+            System.out.println("You can only play 26 rounds.");
         } else {
             System.out.println("Error");
         }
@@ -130,7 +135,6 @@ public class PlayingCardGame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
     private void backToMenu() {
