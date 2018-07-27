@@ -1,9 +1,6 @@
 package com.company;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.Scanner;
 
 public class PlayingCardGame {
@@ -83,7 +80,7 @@ public class PlayingCardGame {
 
             System.out.println("\n" + name + ", your total score is: " + count + " and is added to the highscore board.\n");
 
-            writeToFile("textfiles\\highscore.txt", name, count);
+            writeToFile("textfiles\\highscore.txt", name, count, numberOfRounds);
 
             backToMenu();
 
@@ -107,19 +104,18 @@ public class PlayingCardGame {
 
     }
 
-    private void writeToFile(String fileName, String name, int count) {
-        try {
-            Writer writer = new FileWriter(fileName);
+    private void writeToFile(String fileName, String name, int count, int numberOfRounds) {
 
-            writer.write(name + " " + count);
+        try(FileWriter writer = new FileWriter(fileName, true);
+            BufferedWriter bw = new BufferedWriter(writer);
+            PrintWriter out = new PrintWriter(bw))
+        {
+            out.println(name + " " + count + " points, " + (count/numberOfRounds)*(100) + "%");
 
-            writer.flush();
-            writer.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void readFile(String fileName) {
