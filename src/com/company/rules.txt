@@ -1,9 +1,0 @@
-Rules of the game
-
-Guess if your card is higher or lower than the hidden card. You get 10 chances.
-
-Rating order:
-Spades
-Hearts
-Diamonds
-Cloves
