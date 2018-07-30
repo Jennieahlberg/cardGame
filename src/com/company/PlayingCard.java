@@ -1,6 +1,7 @@
 package com.company;
 
 public class PlayingCard {
+
     private String color;
     private String value;
     private int prio;
@@ -14,45 +15,26 @@ public class PlayingCard {
     }
 
     public String getColor() {
-
         return color;
     }
 
-    public void setColor(String color) {
-
-        this.color = color;
-    }
-
     public String getValue() {
-
         return value;
     }
 
-    public void setValue(String value) {
-
-        this.value = value;
+    public boolean isHidden() {
+        return hidden;
     }
+
 
     public int getPrio() {
 
         return prio;
     }
 
-    public void setPrio(int prio) {
-
-        this.prio = prio;
-    }
-
-    public boolean isHidden() {
-
-        return hidden;
-    }
-
     public void setHidden(boolean hidden) {
-
         this.hidden = hidden;
     }
-
 
     @Override
     public String toString() {

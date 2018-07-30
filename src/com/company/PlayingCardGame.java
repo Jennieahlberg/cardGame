@@ -1,7 +1,7 @@
 package com.company;
 
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class PlayingCardGame {
 
@@ -38,15 +38,17 @@ public class PlayingCardGame {
 
         int count = 0;
 
-        if (numberOfRounds > 0 && numberOfRounds < 27) {
+        if (numberOfRounds > 0) {
 
             for (int i = 0; i < numberOfRounds; i++) {
 
-                System.out.println("\n" + name + ", take the top card of the deck by pressing 1.");
-                int cardChoice = input.nextInt();
+                System.out.println("\n" + name + ", take the top card of the deck by pressing any key + enter.");
+                String cardChoice = input.next();
 
                 PlayingCard card = deck.getTopCard();
+                card.setHidden(false);
                 deck.removeCard(0);
+                deck.putCardInBottomOfDeck(card);
                 System.out.println("Your card is: " + card + "\n");
 
                 System.out.println("Press 1 to take your hidden card from the deck.");
@@ -55,25 +57,17 @@ public class PlayingCardGame {
                 if (hiddenCardChoice == 1) {
                     PlayingCard hiddenCard = deck.getTopCard();
                     deck.removeCard(0);
+                    deck.putCardInBottomOfDeck(hiddenCard);
 
                     System.out.println("\nIs your first card:\nHigher, press 1\nLower, press 2\nthan the hidden card?");
                     int guess = input.nextInt();
 
                     if (guess == 1) {
-                        if (card.getPrio() > hiddenCard.getPrio()) {
-                            System.out.println("Your card was higher than the hidden card. You get one point.\nThe hidden card was: " + hiddenCard);
-                            count++;
-                        } else if (card.getPrio() < hiddenCard.getPrio()) {
-                            System.out.println("Your card was lower than the hidden card. You get no point.\nThe hidden card was: " + hiddenCard);
-                        }
+                        checkHigh(card, hiddenCard, count);
 
                     } else if (guess == 2) {
-                        if (card.getPrio() < hiddenCard.getPrio()) {
-                            System.out.println("Your card was lower than the hidden card. You get one point.\nThe hidden card was: " + hiddenCard);
-                            count++;
-                        } else if (card.getPrio() > hiddenCard.getPrio()) {
-                            System.out.println("Your card was higher than the hidden card. You get no point.\nThe hidden card was: " + hiddenCard);
-                        }
+                        checkLow(card, hiddenCard, count);
+
                     }
                 }
             }
@@ -86,8 +80,6 @@ public class PlayingCardGame {
 
         } else if (numberOfRounds == 2) {
             System.exit(1);
-        } else if (numberOfRounds >= 27) {
-            System.out.println("You can only play 26 rounds.");
         } else {
             System.out.println("Error");
         }
@@ -106,11 +98,10 @@ public class PlayingCardGame {
 
     private void writeToFile(String fileName, String name, int count, int numberOfRounds) {
 
-        try(FileWriter writer = new FileWriter(fileName, true);
-            BufferedWriter bw = new BufferedWriter(writer);
-            PrintWriter out = new PrintWriter(bw))
-        {
-            out.println(name + " " + count + " points, " + (count/numberOfRounds)*(100) + "%");
+        try (FileWriter writer = new FileWriter(fileName, true);
+             BufferedWriter bw = new BufferedWriter(writer);
+             PrintWriter out = new PrintWriter(bw)) {
+            out.println(name + " " + count + " points, " + (count / numberOfRounds) * (100) + "%");
 
 
         } catch (IOException e) {
@@ -146,4 +137,33 @@ public class PlayingCardGame {
             System.out.println("Error");
         }
     }
+
+    private void checkHigh(PlayingCard card, PlayingCard hiddenCard, int count) {
+        count = 0;
+        if (card.getPrio() > hiddenCard.getPrio()) {
+            hiddenCard.setHidden(false);
+            System.out.println("Your card was higher than the hidden card. You get one point.\nThe hidden card was: " + hiddenCard);
+            count++;
+        } else if (card.getPrio() < hiddenCard.getPrio()) {
+            hiddenCard.setHidden(false);
+            System.out.println("Your card was lower than the hidden card. You get no point.\nThe hidden card was: " + hiddenCard);
+        }
+    }
+
+    private void checkLow(PlayingCard card, PlayingCard hiddenCard, int count) {
+        count = 0;
+        if (card.getPrio() < hiddenCard.getPrio()) {
+            hiddenCard.setHidden(false);
+            System.out.println("Your card was lower than the hidden card. You get one point.\nThe hidden card was: " + hiddenCard);
+            count++;
+        } else if (card.getPrio() > hiddenCard.getPrio()) {
+            hiddenCard.setHidden(false);
+            System.out.println("Your card was higher than the hidden card. You get no point.\nThe hidden card was: " + hiddenCard);
+        }
+    }
+
 }
+
+
+
+
