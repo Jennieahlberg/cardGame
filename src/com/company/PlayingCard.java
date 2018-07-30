@@ -15,24 +15,27 @@ public class PlayingCard {
     }
 
     public String getColor() {
+
         return color;
     }
 
     public String getValue() {
+
         return value;
     }
-
-    public boolean isHidden() {
-        return hidden;
-    }
-
 
     public int getPrio() {
 
         return prio;
     }
 
+    public boolean isHidden() {
+
+        return hidden;
+    }
+
     public void setHidden(boolean hidden) {
+
         this.hidden = hidden;
     }
 

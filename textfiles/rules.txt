@@ -4,7 +4,7 @@ Rules of the game
 
 Guess if your card is higher or lower than the hidden card. You decides how many rounds you wish to play.
 
-Rating order:
+Card rating order:
 Spades
 Hearts
 Diamonds

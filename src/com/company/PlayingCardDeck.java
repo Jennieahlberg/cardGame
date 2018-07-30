@@ -70,22 +70,27 @@ public class PlayingCardDeck {
     }
 
     public void shuffle(){
+
         Collections.shuffle(this.cards);
     }
 
     public void putCardInBottomOfDeck(PlayingCard card) {
+
         this.cards.add(new PlayingCard(card.getColor(), card.getValue(), card.isHidden(), card.getPrio()));
 
     }
 
     public PlayingCard getTopCard() {
+
         if (this.cards.size() <= 0) {
             return null;
         } else {
             return this.cards.get(0);
         }
     }
+
     public void removeCard(int index){
+
         this.cards.remove(index);
 
     }
