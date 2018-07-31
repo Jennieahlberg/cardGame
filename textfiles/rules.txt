@@ -8,4 +8,4 @@ Card rating order:
 Spades
 Hearts
 Diamonds
-Cloves
+Clovers

@@ -15,7 +15,7 @@ public class PlayingCardGame {
         } else if (menu == 2) {
             rules();
         } else if (menu == 3) {
-            highscore();
+            statics();
         } else if (menu == 0) {
             quitGame();
         } else {
@@ -90,7 +90,7 @@ public class PlayingCardGame {
         backToMenu();
     }
 
-    private void highscore() {
+    private void statics() {
         readFile("textfiles\\statics.txt");
         backToMenu();
 
