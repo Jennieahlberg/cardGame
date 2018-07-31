@@ -17,7 +17,7 @@ public class PlayingCardGame {
         } else if (menu == 3) {
             highscore();
         } else if (menu == 0) {
-            System.exit(1);
+            quitGame();
         } else {
             backToMenu();
         }
@@ -79,7 +79,7 @@ public class PlayingCardGame {
             backToMenu();
 
         } else if (numberOfRounds == 0) {
-            System.exit(1);
+            quitGame();
         } else {
             System.out.println("Error");
         }
@@ -131,7 +131,7 @@ public class PlayingCardGame {
         if (chioce == 1) {
             menu();
         } else if (chioce == 0) {
-            System.exit(1);
+            quitGame();
         } else {
             System.out.println("Error");
         }
@@ -155,6 +155,9 @@ public class PlayingCardGame {
             hiddenCard.setHidden(false);
             System.out.println("Wrong! Your card was higher than the hidden card.\nThe hidden card was: " + hiddenCard);
         }
+    }
+    private void quitGame(){
+        System.exit(1);
     }
 
 }
